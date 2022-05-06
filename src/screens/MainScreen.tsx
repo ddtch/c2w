@@ -1,16 +1,101 @@
-import { Text, StyleSheet, View } from 'react-native'
-import React, { Component } from 'react'
+import { Pressable, StyleSheet, Text, View } from 'react-native'
+import React, { useEffect, useState } from 'react'
+import { SafeAreaView } from 'react-native-safe-area-context';
+import { IChore } from '../models/IChore';
+import { mainStyles } from '../styles/main.styles';
+import TasksFeed from '../components/TasksFeed';
+//@ts-ignore
+import ch1Img from '../assets/imgs/chore-1.png';
+//@ts-ignore
+import ch2Img from '../assets/imgs/chore-2.png';
+//@ts-ignore
+import ch3Img from '../assets/imgs/chore-3.png';
 
-export default class MainScreen extends Component {
-  render() {
-    return (
-      <View>
-        <Text>MainScreen</Text>
-      </View>
-    )
-  }
+export const choirsList: IChore[] = [
+  {
+    id: 1,
+    title: 'Chore 1',
+    description: 'Lorem ipsum est dollar more dollar',
+    done: false,
+    image: ch1Img,
+  },
+  {
+    id: 2,
+    title: 'Chore 3',
+    description: 'Lorem ipsum est dollar more dollar',
+    done: true,
+    image: ch2Img,
+  },
+  {
+    id: 3,
+    title: 'Chore 3',
+    description: 'Lorem ipsum est dollar more dollar',
+    done: false,
+    image: ch3Img,
+  },
+];
+
+const KidsView = () => {
+  return (
+    <View>
+      <Text>Ama kid</Text>
+    </View>
+  )
 }
 
-const mainScreenStyles = StyleSheet.create({
+const ParentView: React.FC<any> = ({navigateFn}) => {
+  return (
+    <View>
+      <Text>Ama Parent</Text>
+      <Pressable onPress={() => navigateFn('Child')}>
+        <Text>Go to children</Text>
+      </Pressable>
 
+      <View style={{...mainStyles.content}}>
+        <Text>MainScreen</Text>
+        <TasksFeed tasks={choirsList} />
+      </View>
+    </View>
+  )
+}
+
+const MainScreen: React.FC<any> = ({navigation}) => {
+  const [kidMode, setKidMode] = useState(false);
+  const goToPage = (link: string) => navigation.navigate(link);
+
+  return (
+    <View>
+      <Pressable style={styles.switcher}
+        onPress={() => setKidMode(!kidMode)}>
+        <Text style={styles.switcherText}>KM</Text>
+      </Pressable>
+      {
+        kidMode ? 
+          <KidsView/> :
+          <ParentView navigateFn={(link: string) => goToPage(link)}/>
+      }
+    </View>
+  )
+}
+
+export default MainScreen
+
+const styles = StyleSheet.create({
+  switcher: {
+    position: 'absolute',
+    top: 0,
+    right: 6,
+    width: 22,
+    height: 22,
+    textAlign: 'center',
+    backgroundColor: 'rgba(0,0,0,.3)',
+    borderRadius: 6,
+    zIndex: 20,
+  },
+  switcherText: {
+    color: '#fff',
+    fontSize: 12,
+    textAlign: 'center',
+    lineHeight: 22,
+  }
 })

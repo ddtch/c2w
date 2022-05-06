@@ -1,35 +1,20 @@
-/**
- * Sample React Native App
- * https://github.com/facebook/react-native
- *
- * Generated with the TypeScript template
- * https://github.com/react-native-community/react-native-template-typescript
- *
- * @format
- */
-
-import React from 'react';
+import React, { useState } from 'react';
 import {
-  SafeAreaView,
-  ScrollView,
-  StatusBar,
+  Pressable,
   StyleSheet,
-  Text,
   useColorScheme,
-  View,
+  Text,
 } from 'react-native';
-
 import {
   Colors,
-  DebugInstructions,
-  Header,
-  LearnMoreLinks,
-  ReloadInstructions,
 } from 'react-native/Libraries/NewAppScreen';
-import { MainScreen } from './src/screens';
-import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
-import {NavigationContainer} from '@react-navigation/native';
-
+import {MainScreen, MainScreenNavigator, ProfileScreen} from './src/screens';
+import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
+import {NavigationContainer, DefaultTheme} from '@react-navigation/native';
+import Ionicons from 'react-native-vector-icons/Ionicons';
+import LinearGradient from 'react-native-linear-gradient';
+import LeaderboardScreen from './src/screens/LeaderboardScreen';
+import KidProvider from './src/contexts/KidProvider';
 
 const MainTabsNavigator = createBottomTabNavigator();
 
@@ -38,20 +23,75 @@ const App = () => {
 
   const backgroundStyle = {
     backgroundColor: isDarkMode ? Colors.darker : Colors.lighter,
+    flex: 1,
+  };
+
+  const navTheme = {
+    ...DefaultTheme,
+    colors: {
+      ...DefaultTheme.colors,
+      background: '#fff', //'transparent',
+    },
   };
 
   return (
-    <SafeAreaView style={backgroundStyle}>
-      <StatusBar barStyle={isDarkMode ? 'light-content' : 'dark-content'} />
-      <View>
-        <Text>Meow</Text>
-      </View>
-      <NavigationContainer>
-        <MainTabsNavigator.Navigator>
-          <MainTabsNavigator.Screen name={"Main"} component={MainScreen}/>
+      <NavigationContainer theme={navTheme}>
+        <MainTabsNavigator.Navigator
+          screenOptions={({route}) => ({
+            headerStyle: {
+              // backgroundColor: 'rgba(0,0,0,0)',
+              // display: 'none'
+            },
+            headerTintColor: '#646396',
+            headerTitleStyle: {
+              fontWeight: 'bold',
+            },
+            // bottom bar start
+            tabBarStyle: {
+              paddingTop: 10,
+              backgroundColor: '#fff',
+              // backgroundColor: '#2c2497',
+              borderTopWidth: 1,
+              borderRightWidth: 1,
+              borderLeftWidth: 1,
+              borderColor: '#9b9baa',
+              borderRadius: 20,
+            },
+            tabBarActiveBackgroundColor: 'rgba(0,0,0,0)',
+            tabBarInActiveBackgroundColor: 'rgba(0,0,0,0)',
+            tabBarIcon: ({focused, color, size}) => {
+              let iconName: string;
+
+              if (route.name === 'Main') {
+                iconName = 'ios-home-outline';
+              } else if (route.name === 'Profile') {
+                iconName = 'person-circle-outline';
+              } else if (route.name === 'Leaderboard') {
+                iconName = 'list-circle-outline';
+              }
+
+              // @ts-ignore
+              return <Ionicons name={iconName} size={size} color={color}/>;
+            },
+            tabBarActiveTintColor: '#646396',
+            tabBarInactiveTintColor: 'rgba(0,0,0,.3)',
+          })}
+        >
+          <MainTabsNavigator.Screen
+            options={{
+              headerShown: false,
+            }}
+            name={'Main'}
+            component={MainScreenNavigator}/>
+          <MainTabsNavigator.Screen
+            name={'Leaderboard'}
+            component={LeaderboardScreen}
+          />
+          <MainTabsNavigator.Screen
+            name={'Profile'}
+            component={ProfileScreen}/>
         </MainTabsNavigator.Navigator>
       </NavigationContainer>
-    </SafeAreaView>
   );
 };
 
