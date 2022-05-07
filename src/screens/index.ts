@@ -3,6 +3,7 @@ import ProfileScreen from "./ProfileScreen";
 import MainScreen from "./MainScreen";
 import ChildrenScreen from "./ChildrenScreen";
 import LeaderboardScreen from './LeaderboardScreen';
+import TopUpBalanceScreen from "./TopUpBalance";
 
 export {
   MainScreenNavigator,
@@ -10,4 +11,5 @@ export {
   ChildrenScreen,
   LeaderboardScreen,
   ProfileScreen,
+  TopUpBalanceScreen,
 }

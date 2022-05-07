@@ -4,6 +4,7 @@ import { createStackNavigator } from '@react-navigation/stack';
 import MainScreen from './MainScreen';
 import ChildrenScreen from './ChildrenScreen';
 import KidProvider from '../contexts/KidProvider';
+import TopUpBalanceScreen from './TopUpBalance';
 
 const MainScreenStack = createStackNavigator();
 
@@ -17,8 +18,18 @@ export const MainScreenNavigator = () => {
             fontWeight: 'bold',
           },
         })}>
-        <MainScreenStack.Screen name='Home' component={MainScreen} />
+        <MainScreenStack.Screen name='Home' component={MainScreen}
+          options={{
+            headerShown: false,
+          }}/>
         <MainScreenStack.Screen name='Child' component={ChildrenScreen}/>
+        <MainScreenStack.Screen
+          options={{
+            presentation: 'modal',
+            headerBackTitleVisible: false,
+            headerTitle: 'Top Up'
+          }}
+          name='TopUp' component={TopUpBalanceScreen}/>
       </MainScreenStack.Navigator>
     ); 
   

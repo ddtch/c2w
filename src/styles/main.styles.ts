@@ -5,15 +5,16 @@ export const mainStyles = StyleSheet.create({
   container: {
     flex: 1,
     flexDirection: 'column',
-    alignContent: 'flex-start',
-    justifyContent: 'flex-start',
-    alignItems: 'flex-start',
+    position: 'relative',
     padding: 0,
     margin: 0,
   },
   content: {
     flex: 1,
     flexDirection: 'column',
-    padding: 22,
+    alignContent: 'flex-start',
+    justifyContent: 'flex-start',
+    padding: 20,
+    position: 'relative',
   },
 });

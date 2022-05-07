@@ -10,6 +10,7 @@ import ch1Img from '../assets/imgs/chore-1.png';
 import ch2Img from '../assets/imgs/chore-2.png';
 //@ts-ignore
 import ch3Img from '../assets/imgs/chore-3.png';
+import UserTopBar from '../components/UserTopBar';
 
 export const choirsList: IChore[] = [
   {
@@ -44,14 +45,20 @@ const KidsView = () => {
 }
 
 const ParentView: React.FC<any> = ({navigateFn}) => {
+  const [balance, setBalance] = useState(12.5)
   return (
-    <View>
-      <Text>Ama Parent</Text>
-      <Pressable onPress={() => navigateFn('Child')}>
-        <Text>Go to children</Text>
-      </Pressable>
+    <View style={mainStyles.content}>
+      <UserTopBar onTopUp={() => navigateFn('TopUp')} balance={balance}/>
+      <View>
+        <Text>Ama Parent</Text>
+        <Pressable onPress={() => navigateFn('Child')}>
+          <Text>Go to children</Text>
+        </Pressable>
+        
+        <Pressable onPress={() => navigateFn('TopUp')}>
+          <Text>Top Up my Balance</Text>
+        </Pressable>
 
-      <View style={{...mainStyles.content}}>
         <Text>MainScreen</Text>
         <TasksFeed tasks={choirsList} />
       </View>
@@ -64,7 +71,7 @@ const MainScreen: React.FC<any> = ({navigation}) => {
   const goToPage = (link: string) => navigation.navigate(link);
 
   return (
-    <View>
+    <SafeAreaView style={mainStyles.container}>
       <Pressable style={styles.switcher}
         onPress={() => setKidMode(!kidMode)}>
         <Text style={styles.switcherText}>KM</Text>
@@ -74,7 +81,7 @@ const MainScreen: React.FC<any> = ({navigation}) => {
           <KidsView/> :
           <ParentView navigateFn={(link: string) => goToPage(link)}/>
       }
-    </View>
+    </SafeAreaView>
   )
 }
 
@@ -83,7 +90,7 @@ export default MainScreen
 const styles = StyleSheet.create({
   switcher: {
     position: 'absolute',
-    top: 0,
+    top: 40,
     right: 6,
     width: 22,
     height: 22,
