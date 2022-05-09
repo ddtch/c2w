@@ -123,7 +123,7 @@ const ChildrenScreen: React.FC<any> = ({route, navigation}) => {
             </View>
 
             <View style={{marginLeft: 'auto', opacity: .6}}>
-              <Text style={{fontWeight: '600'}}>{el.price}$</Text>
+              <Text style={{fontWeight: '600'}}>${el.price}</Text>
             </View>
           </View>)
         }

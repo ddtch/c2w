@@ -37,13 +37,13 @@ export const MainScreenNavigator = () => {
               headerBackTitleVisible: false,
             }}
           />
-          <MainScreenStack.Screen
+          <MainScreenStack.Screen name='TopUp' component={TopUpBalanceScreen}
             options={{
               presentation: 'modal',
               headerBackTitleVisible: false,
               headerTitle: 'Payment data'
             }}
-            name='TopUp' component={TopUpBalanceScreen}/>
+          />
         </MainScreenStack.Navigator>
       </WalletProvider>
     ); 

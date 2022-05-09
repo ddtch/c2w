@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import {
   Pressable,
   StyleSheet,
@@ -12,7 +12,6 @@ import {MainScreen, MainScreenNavigator, ProfileScreen, SettengsScreen, TokensSc
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 import {NavigationContainer, DefaultTheme} from '@react-navigation/native';
 import Ionicons from 'react-native-vector-icons/Ionicons';
-import LinearGradient from 'react-native-linear-gradient';
 import LeaderboardScreen from './src/screens/LeaderboardScreen';
 import KidProvider from './src/contexts/KidProvider';
 
@@ -24,6 +23,7 @@ import SettingsIcon from './src/assets/svg/tab-settings.svg';
 import SettingsIconInactive from './src/assets/svg/tab-settings-inactive.svg';
 import TknsIcon from './src/assets/svg/tab-tkn.svg';
 import TknsIconInactive from './src/assets/svg/tab-tkn-inactive.svg';
+import SplashScreen from 'react-native-splash-screen';
 
 const MainTabsNavigator = createBottomTabNavigator();
 
@@ -44,6 +44,10 @@ const App = () => {
       text: '#020538',
     },
   };
+
+  useEffect(() => {
+    SplashScreen.hide()
+  }, [])
 
   return (
       <NavigationContainer theme={navTheme}>

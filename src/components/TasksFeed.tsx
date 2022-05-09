@@ -27,7 +27,7 @@ const TasksFeed: React.FC<TasksFeedProps> = ({tasks}) => {
                 </View>
                 <View style={styles.price}>
                   <TknIcon width={14} height={14} />
-                  <Text style={styles.priceText}>{el.price} TKN</Text>
+                  <Text style={styles.priceText}>{el.price} C2W</Text>
                 </View>
               </View>
 

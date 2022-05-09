@@ -82,8 +82,8 @@ const TopUpBalanceScreen: React.FC<any> = (props) => {
               <Text style={styles.subheader}>Total dollors</Text>
               <TextInput
                 style={styles.tknInput}
-                value={usd + '$'}
-                placeholder={'0.00$'}
+                value={'$' + usd}
+                placeholder={'$0.00'}
                 placeholderTextColor={'rgba(0,0,0,.2)'}
               />
             </View>

@@ -164,7 +164,7 @@ export default MainScreen
 const styles = StyleSheet.create({
   switcher: {
     position: 'absolute',
-    top: 40,
+    top: 140,
     right: 6,
     width: 22,
     height: 22,
@@ -187,6 +187,7 @@ const styles = StyleSheet.create({
   },
   appsHolder: {
     height: 110,
+    marginBottom: 10,
   },
   appImage: {
     width: 106,
