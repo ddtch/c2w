@@ -15,6 +15,7 @@ export const mainStyles = StyleSheet.create({
     alignContent: 'flex-start',
     justifyContent: 'flex-start',
     padding: 20,
+    paddingBottom: 0,
     position: 'relative',
   },
 });

@@ -6,6 +6,7 @@ import ChildrenScreen from './ChildrenScreen';
 import TopUpBalanceScreen from './TopUpBalanceScreen';
 import { WalletProvider } from '../contexts/WalletProvider';
 import { WalletContext } from '../contexts/WalletContext';
+import Marketplace from './Marketplace';
 
 const MainScreenStack = createStackNavigator();
 
@@ -25,6 +26,12 @@ export const MainScreenNavigator = () => {
               headerShown: false,
             }}/>
           <MainScreenStack.Screen name='Child' component={ChildrenScreen}
+            options={{
+              presentation: 'modal',
+              headerBackTitleVisible: false,
+            }}
+          />
+          <MainScreenStack.Screen name='Market' component={Marketplace}
             options={{
               presentation: 'modal',
               headerBackTitleVisible: false,

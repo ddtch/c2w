@@ -1,4 +1,4 @@
-import { Pressable, StyleSheet, Text, View } from 'react-native'
+import { Pressable, StyleSheet, Text, View, Image } from 'react-native'
 import React, { useContext, useEffect, useState } from 'react'
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { IChore } from '../models/IChore';
@@ -22,17 +22,12 @@ import BaseCard from '../components/BaseCard';
 import FamilyList, { famFolks } from '../components/FamilyList';
 import Calendar from '../components/Calendar';
 import { ScrollView } from 'react-native-gesture-handler';
+import KidsTaskCard from '../components/KidsTaskCard';
+import {launchCamera, launchImageLibrary} from 'react-native-image-picker';
+import { createIconSetFromFontello } from 'react-native-vector-icons';
+import { appsAndMarketplace } from './ChildrenScreen';
 
 export const choirsList: IChore[] = [
-  {
-    id: 1,
-    title: 'Vacuum',
-    description: 'Lorem ipsum est dollar more dollar',
-    done: false,
-    image: ch1Img,
-    price: 21,
-    kids: [famFolks[0]]
-  },
   {
     id: 2,
     title: 'Clean dishes',
@@ -41,6 +36,15 @@ export const choirsList: IChore[] = [
     image: ch2Img,
     price: 18,
     kids: [famFolks[0], famFolks[1]]
+  },
+  {
+    id: 1,
+    title: 'Vacuum',
+    description: 'Lorem ipsum est dollar more dollar',
+    done: false,
+    image: ch1Img,
+    price: 21,
+    kids: [famFolks[0]]
   },
   {
     id: 3,
@@ -63,11 +67,49 @@ export const choirsList: IChore[] = [
 ];
 
 const KidsView = () => {
+  const [doneImg, setDoneImg] = useState();
+  const [taskComplete, setTaskComplete] = useState(false);
+  const [kidBalance, addKidBalance] = useState<number>(32);
+
+  const addPicture = async () => {
+    const result = await launchCamera({
+      mediaType: 'photo',
+      quality: 1,
+    });
+    //@ts-ignore
+    setDoneImg(result.assets[0].uri);
+    setTimeout(() => {
+      setTaskComplete(true);
+    }, 1200)
+    addKidBalance(kidBalance + choirsList[1].price)
+  }
+
   return (
     <View style={{...mainStyles.content, backgroundColor: '#F8FAFC'}}>
-      <UserTopBar fullName='Ali Hertel' balance={32} hideBtn userAva={kid1}/>
-      <Text style={styles.mainHeader}>Chores for the day</Text>
-
+      <UserTopBar fullName='Ali Hertel' balance={kidBalance} hideBtn userAva={kid1}/>
+      <ScrollView>
+        <Text style={styles.mainHeader}>Chores for the day</Text>
+        <KidsTaskCard doneImg={doneImg} taskComplete={taskComplete} addPicture={addPicture}/>
+      
+        <Text style={styles.mainHeader}>Apps {'&'} Games</Text>
+        <ScrollView horizontal showsHorizontalScrollIndicator={false} style={styles.appsHolder}>
+            {
+              appsAndMarketplace.map(el => <View key={el.id}>
+                <Image source={el.img} resizeMode={'cover'} style={styles.appImage}/>
+              </View>)
+            }
+        </ScrollView>
+        <Text style={styles.mainHeader}>Marketplace</Text>
+        <ScrollView horizontal showsHorizontalScrollIndicator={false} style={styles.appsHolder}>
+            {
+              appsAndMarketplace.slice(2, appsAndMarketplace.length - 1).map(el => <View key={el.id}>
+                <Image source={el.img} resizeMode={'cover'} style={styles.appImage}/>
+              </View>)
+            }
+        </ScrollView>
+        <Text style={styles.mainHeader}>Friends</Text>
+        <FamilyList kidMode />
+      </ScrollView>
     </View>
   )
 }
@@ -79,19 +121,16 @@ const ParentView: React.FC<any> = ({navigateFn}) => {
   return (
     <View style={{...mainStyles.content, backgroundColor: '#F8FAFC'}}>
       <UserTopBar topUp={() => navigateFn('TopUp')} balance={walletDetails.summ} userAva={momAvatar}/>
+      
       <Text style={styles.mainHeader}>My Family</Text>
+      
       <FamilyList onUserClick={(params: any) => navigateFn('Child', params)}/>
+      
       <Text style={styles.mainHeader}>Chores for the day</Text>
+      
       <Calendar/>
+
       <ScrollView style={{minHeight: 420, flex: 1}}>
-        {/* <Pressable onPress={() => navigateFn('Child')}>
-          <Text>Go to children</Text>
-        </Pressable>
-        
-        <Pressable onPress={() => navigateFn('TopUp')}>
-          <Text>Top Up my Balance</Text>
-        </Pressable> */}
-        
         <TasksFeed tasks={choirsList} />
       </ScrollView>
     </View>
@@ -145,5 +184,13 @@ const styles = StyleSheet.create({
     fontWeight: '500',
     marginBottom: 14,
     color: '#020538',
+  },
+  appsHolder: {
+    height: 110,
+  },
+  appImage: {
+    width: 106,
+    height: 106,
+    marginRight: 10,
   },
 })

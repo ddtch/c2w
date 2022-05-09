@@ -9,7 +9,7 @@ export type UserTopBarProps = {
   balance: number;
   hideBtn?: boolean;
   userAva: any;
-  kidMode: boolean;
+  kidMode?: boolean;
 }
 
 const UserTopBar: React.FC<UserTopBarProps> = ({fullName = 'Katelyn Hertel', topUp, balance, hideBtn, userAva, kidMode}) => {

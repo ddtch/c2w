@@ -1,4 +1,4 @@
-import { Image, StyleSheet, Text, View } from 'react-native'
+import { Image, Pressable, StyleSheet, Text, View } from 'react-native'
 import React, { useEffect } from 'react'
 import { mainStyles } from '../styles/main.styles';
 import UserTopBar from '../components/UserTopBar';
@@ -13,6 +13,9 @@ import app6 from '../assets/imgs/app-6.png';
 
 import ed1 from '../assets/imgs/ed-11.png';
 import ed2 from '../assets/imgs/ed-22.png';
+
+import logo1 from '../assets/imgs/logo-1.png';
+import logo2 from '../assets/imgs/logo-2.png';
 
 export const appsAndMarketplace = [
   {
@@ -52,6 +55,21 @@ export const educationalApps = [
   }
 ]
 
+export const kidsTransactions = [
+  {
+    id: 'sdj89nh',
+    logo: logo1,
+    price: 124,
+    title: 'Roblox'
+  },
+  {
+    id: 'sdh98gvs',
+    logo: logo2,
+    price: 64,
+    title: 'Lego'
+  }
+]
+
 const ChildrenScreen: React.FC<any> = ({route, navigation}) => {
   const {id, title, img} = route.params;
   
@@ -71,27 +89,45 @@ const ChildrenScreen: React.FC<any> = ({route, navigation}) => {
       <View style={{marginBottom: 20}}>
         <ScrollView horizontal showsHorizontalScrollIndicator={false} style={styles.appsHolder}>
           {
-            appsAndMarketplace.slice(0,2).map(el => <View key={el.id}>
+            appsAndMarketplace.slice(0,1).map(el => <View key={el.id}>
               <Image source={el.img} resizeMode={'cover'} style={styles.appImage}/>
             </View>)
           }
-          <View style={styles.addAppBtn}><Text style={styles.addAppBtnText}>+ {'\n'} add more</Text></View>
+          <Pressable onPress={() => navigation.navigate('Market')}
+            style={styles.addAppBtn}>
+              <Text style={styles.addAppBtnText}>+ {'\n'} more</Text>
+          </Pressable>
         </ScrollView>
       </View>
 
       <Text style={styles.subheader}>Educational apps</Text>
       <View style={{marginBottom: 20}}>
-        <ScrollView horizontal showsHorizontalScrollIndicator={false} style={styles.appsHolder}>
+        <ScrollView horizontal showsHorizontalScrollIndicator={false}>
           {
             educationalApps.map(el => <View key={el.id}>
               <Image source={el.img} resizeMode={'cover'} style={styles.appImage}/>
             </View>)
           }
-          <View style={styles.addAppBtn}><Text style={styles.addAppBtnText}>+ {'\n'} add more</Text></View>
+          <View style={styles.addAppBtn}><Text style={styles.addAppBtnText}>+ {'\n'} more</Text></View>
         </ScrollView>
       </View>
 
       <Text style={styles.subheader}>Purchase history</Text>
+      <View style={{marginBottom: 20}}>
+        {
+          kidsTransactions.map(el => <View key={el.id} style={styles.transaction}>
+            <Image source={el.logo} resizeMode={'cover'} style={styles.transactionImage}/>
+            <View>
+              <Text style={{fontWeight: '600', fontSize: 18}}>{el.title}</Text>
+              <Text style={{opacity: .6, fontSize: 12, fontWeight: '500'}}>gift card redeem</Text>
+            </View>
+
+            <View style={{marginLeft: 'auto', opacity: .6}}>
+              <Text style={{fontWeight: '600'}}>{el.price}$</Text>
+            </View>
+          </View>)
+        }
+      </View>
     </View>
   )
 }
@@ -103,7 +139,7 @@ const styles = StyleSheet.create({
     fontWeight: '600',
     fontSize: 14,
     marginBottom: 10,
-    color: '#565a5c',
+    color: '#4a4a4a',
   },
   appsHolder: {
     height: 110,
@@ -130,4 +166,16 @@ const styles = StyleSheet.create({
     fontWeight: '500',
     color: '#3C90F4',
   },
+  transaction: {
+    display: 'flex',
+    flexDirection: 'row',
+    marginBottom: 16,
+    alignItems: 'center',
+    alignContent: 'center',
+  },
+  transactionImage: {
+    width: 40,
+    height: 40,
+    marginRight: 20
+  }
 })

@@ -5,6 +5,11 @@ import kid1Pict from '../assets/imgs/avatars/kid-ali.png';
 import kid2Pict from '../assets/imgs/avatars/kid-sai.png';
 import kid3Pict from '../assets/imgs/avatars/kid-dd.png';
 import BaseCard from './BaseCard';
+import fr1Pict from '../assets/imgs/avatars/fr-1.png';
+import fr2Pict from '../assets/imgs/avatars/fr-2.png';
+import fr3Pict from '../assets/imgs/avatars/fr-3.png';
+import fr4Pict from '../assets/imgs/avatars/fr-4.png';
+import { ScrollView } from 'react-native-gesture-handler';
 
 export const famFolks = [
   {
@@ -27,19 +32,55 @@ export const famFolks = [
   },
 ];
 
-const FamilyList: React.FC<any> = ({onUserClick}) => {
+export const friends = [
+  {
+    id: '2f424f',
+    tasks: 3,
+    img: fr1Pict,
+  },
+  {
+    id: 'SAasdf2I',
+    tasks: 2,
+    img: fr2Pict,
+  },
+  {
+    id: 'D23f23D',
+    tasks: 2,
+    img: fr3Pict,
+  },
+  {
+    id: 'D23f212123D',
+    tasks: 0,
+    img: fr4Pict,
+  },
+]
+
+const FamilyList: React.FC<any> = ({onUserClick, kidMode}) => {
   return (
     <BaseCard>
       <View style={styles.folksHolder}>
       {
-        famFolks.map(el => <View key={el.id} style={styles.avHolder}>
-          <Pressable onPress={() => onUserClick(el)}>
+        !kidMode && famFolks.map(el => <View key={el.id} style={styles.avHolder}>
+          <Pressable onPress={() => onUserClick && onUserClick(el)}>
             <Image source={el.img} resizeMode={'cover'} style={styles.ava}/>
             <View style={styles.badgeHolder}>
               <Text style={styles.badge}>{el.tasks}</Text>
             </View>
           </Pressable>
         </View>)
+      }
+      {
+        kidMode && <ScrollView horizontal showsHorizontalScrollIndicator={false}>
+          {friends.map(el => <View key={el.id} style={styles.avHolder}>
+          <Pressable onPress={() => null}>
+            <Image source={el.img} resizeMode={'cover'} style={styles.ava}/>
+            {
+              el.tasks > 0 && <View style={styles.badgeHolder}>
+                <Text style={styles.badge}>{el.tasks}</Text>
+              </View>
+            }
+          </Pressable>
+        </View>)}</ScrollView>
       }
         <View style={styles.btnHolder}>
           <Text style={styles.btnTxt}>+</Text>

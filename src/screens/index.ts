@@ -6,6 +6,7 @@ import LeaderboardScreen from './LeaderboardScreen';
 import TopUpBalanceScreen from "./TopUpBalanceScreen";
 import TokensScreen from "./TokensScreen";
 import SettengsScreen from "./SettengsScreen";
+import Marketplace from "./Marketplace";
 
 export {
   MainScreenNavigator,
@@ -16,4 +17,5 @@ export {
   TopUpBalanceScreen,
   TokensScreen,
   SettengsScreen,
+  Marketplace,
 }
