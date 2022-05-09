@@ -8,13 +8,22 @@ import {
 import {
   Colors,
 } from 'react-native/Libraries/NewAppScreen';
-import {MainScreen, MainScreenNavigator, ProfileScreen} from './src/screens';
+import {MainScreen, MainScreenNavigator, ProfileScreen, SettengsScreen, TokensScreen} from './src/screens';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 import {NavigationContainer, DefaultTheme} from '@react-navigation/native';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import LinearGradient from 'react-native-linear-gradient';
 import LeaderboardScreen from './src/screens/LeaderboardScreen';
 import KidProvider from './src/contexts/KidProvider';
+
+import MainIcon from './src/assets/svg/tab-home.svg';
+import MainIconInactive from './src/assets/svg/tab-home-inactive.svg';
+import CupIcon from './src/assets/svg/tab-cup.svg';
+import CupIconInactive from './src/assets/svg/tab-cup-inactive.svg';
+import SettingsIcon from './src/assets/svg/tab-settings.svg';
+import SettingsIconInactive from './src/assets/svg/tab-settings-inactive.svg';
+import TknsIcon from './src/assets/svg/tab-tkn.svg';
+import TknsIconInactive from './src/assets/svg/tab-tkn-inactive.svg';
 
 const MainTabsNavigator = createBottomTabNavigator();
 
@@ -30,7 +39,9 @@ const App = () => {
     ...DefaultTheme,
     colors: {
       ...DefaultTheme.colors,
-      background: '#fff', //'transparent',
+      background: '#F8FAFC', //'transparent',
+      primary: '#3C90F4',
+      text: '#020538',
     },
   };
 
@@ -38,10 +49,6 @@ const App = () => {
       <NavigationContainer theme={navTheme}>
         <MainTabsNavigator.Navigator
           screenOptions={({route}) => ({
-            headerStyle: {
-              // backgroundColor: 'rgba(0,0,0,0)',
-              // display: 'none'
-            },
             headerTintColor: '#646396',
             headerTitleStyle: {
               fontWeight: 'bold',
@@ -49,31 +56,31 @@ const App = () => {
             // bottom bar start
             tabBarStyle: {
               paddingTop: 10,
-              backgroundColor: '#fff',
+              backgroundColor: '#F8FAFC',
               // backgroundColor: '#2c2497',
               borderTopWidth: 1,
-              borderRightWidth: 1,
-              borderLeftWidth: 1,
               borderColor: '#9b9baa',
-              borderRadius: 20,
             },
             tabBarActiveBackgroundColor: 'rgba(0,0,0,0)',
             tabBarInActiveBackgroundColor: 'rgba(0,0,0,0)',
             tabBarIcon: ({focused, color, size}) => {
               let iconName: string;
+              const iconSize = 20;
 
               if (route.name === 'Main') {
-                iconName = 'ios-home-outline';
-              } else if (route.name === 'Profile') {
-                iconName = 'person-circle-outline';
+                return focused ? <MainIcon width={iconSize} height={iconSize} /> : <MainIconInactive width={iconSize} height={iconSize} /> 
+              } else if (route.name === 'Settings') {
+                return focused ? <SettingsIcon width={iconSize} height={iconSize} /> : <SettingsIconInactive width={iconSize} height={iconSize} /> 
               } else if (route.name === 'Leaderboard') {
-                iconName = 'list-circle-outline';
+                return focused ? <CupIcon width={iconSize} height={iconSize} /> : <CupIconInactive width={iconSize} height={iconSize} /> 
+              } else if (route.name === 'Tokens') {
+                return focused ? <TknsIcon width={iconSize} height={iconSize} /> : <TknsIconInactive width={iconSize} height={iconSize} /> 
               }
 
               // @ts-ignore
-              return <Ionicons name={iconName} size={size} color={color}/>;
+              // return <Ionicons name={iconName} size={size} color={color}/>;
             },
-            tabBarActiveTintColor: '#646396',
+            tabBarActiveTintColor: '#3C90F4',
             tabBarInactiveTintColor: 'rgba(0,0,0,.3)',
           })}
         >
@@ -88,8 +95,12 @@ const App = () => {
             component={LeaderboardScreen}
           />
           <MainTabsNavigator.Screen
-            name={'Profile'}
-            component={ProfileScreen}/>
+            name={'Tokens'}
+            component={TokensScreen}/>
+
+          <MainTabsNavigator.Screen
+            name={'Settings'}
+            component={SettengsScreen}/>
         </MainTabsNavigator.Navigator>
       </NavigationContainer>
   );

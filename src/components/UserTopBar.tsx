@@ -1,26 +1,28 @@
 import { Image, Pressable, StyleSheet, Text, View } from 'react-native'
 import React from 'react'
-import daddyAvatar from '../assets/imgs/avatars/daddy.png';
 import coinIcon from '../assets/imgs/coin.png';
 import TopUpIcon from '../assets/svg/top-up.svg';
 
 export type UserTopBarProps = {
   fullName?: string;
-  onTopUp?: (amount: number) => void;
-  balance: number
+  topUp?: () => void;
+  balance: number;
+  hideBtn?: boolean;
+  userAva: any;
+  kidMode: boolean;
 }
 
-const UserTopBar: React.FC<UserTopBarProps> = ({fullName = 'David Tcholariya', onTopUp, balance}) => {
+const UserTopBar: React.FC<UserTopBarProps> = ({fullName = 'Katelyn Hertel', topUp, balance, hideBtn, userAva, kidMode}) => {
   return (
     <View style={styles.mainHolder}>
       
       <View style={styles.mainInfo}>
         <View style={styles.avatarHolder}>
-          <Image source={daddyAvatar} resizeMode='contain' style={styles.avatarHolder} />
+          <Image source={userAva} resizeMode='contain' style={styles.avatarHolder} />
         </View>
 
         <View style={styles.textsHolder}>
-          <Text style={styles.welcome}>Welcome!</Text>
+          {!kidMode && <Text style={styles.welcome}>Welcome!</Text>}
           <Text style={styles.name}>{fullName}</Text>
         </View>
       </View>
@@ -29,7 +31,8 @@ const UserTopBar: React.FC<UserTopBarProps> = ({fullName = 'David Tcholariya', o
         
         <View style={styles.amountHolder}>
           <Text style={styles.tip}>
-            Your balance 
+            {!kidMode && 'Your balance'}
+            {kidMode && 'Balance'}
           </Text>
           <View style={{
               display: 'flex',
@@ -43,10 +46,13 @@ const UserTopBar: React.FC<UserTopBarProps> = ({fullName = 'David Tcholariya', o
             </Text>
           </View>
         </View>
-        <View style={styles.topUpBtn}>
-          <TopUpIcon width={26} height={26} />
-          <Text style={{fontSize: 10, opacity: .6, lineHeight: 0}}>Top up</Text>
-        </View>
+        {
+          !hideBtn && <View style={styles.topUpBtn}>
+            <Pressable onPress={() => topUp && topUp()}>
+              <TopUpIcon width={40} height={52} />
+            </Pressable>
+          </View>
+        }
 
       </View>
     </View>
@@ -62,6 +68,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     flexWrap: 'nowrap',
     justifyContent: 'space-between',
+    marginBottom: 20,
   },
   mainInfo: {
     display: 'flex',
@@ -117,13 +124,5 @@ const styles = StyleSheet.create({
   },
   topUpBtn: {
     marginLeft: 6,
-    alignItems: 'center',
-    paddingTop: 2,
-    paddingBottom: 2,
-    paddingRight: 4,
-    paddingLeft: 4,
-    borderWidth: 1,
-    borderColor: 'rgba(0,0,0,.1)',
-    borderRadius: 8,
   }
 })
