@@ -38,7 +38,9 @@
 	<key>NSCameraUsageDescription</key>
 	<string>We need camera access</string>
 	<key>NSLocationWhenInUseUsageDescription</key>
-	<string></string>
+	<string>We need access to you location</string>
+	<key>NSLocationAlwaysAndWhenInUseUsageDescription</key>
+	<string>App usage description</string>
 	<key>UIAppFonts</key>
 	<array>
 		<string>AntDesign.ttf</string>

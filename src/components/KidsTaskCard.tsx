@@ -60,9 +60,9 @@ const KidsTaskCard: React.FC<KidsTaskCardProps> = ({doneImg, taskComplete, task,
     }
     { 
       (doneImg && !taskComplete) && 
-        <View style={{position: 'absolute', width: '120%', height: '120%',top: 0, left: 0, backgroundColor: 'rgba(255,255,255,.6)', zIndex: 20}}>
+        <View style={{position: 'absolute', width: '120%', height: '120%',top: 0, left: 0, backgroundColor: 'rgba(255,255,255,.7)', zIndex: 20}}>
           <ActivityIndicator size="large" color="#00ff00" style={{display: 'flex', marginTop: '60%'}} />
-          <Text style={{fontSize: 22, fontWeight: '600', textAlign: 'center'}}>Waiting for aprovement</Text>
+          <Text style={{fontSize: 22, fontWeight: '600', textAlign: 'center', marginLeft: -30}}>Waiting for aprovement</Text>
         </View>
     }
     </>

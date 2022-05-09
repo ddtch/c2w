@@ -80,7 +80,7 @@ const KidsView = () => {
     setDoneImg(result.assets[0].uri);
     setTimeout(() => {
       setTaskComplete(true);
-    }, 1200)
+    }, 3000)
     addKidBalance(kidBalance + choirsList[1].price)
   }
 
