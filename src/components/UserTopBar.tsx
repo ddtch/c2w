@@ -42,7 +42,7 @@ const UserTopBar: React.FC<UserTopBarProps> = ({fullName = 'Katelyn Hertel', top
             }}>
             
             <Text style={styles.amount}>
-              <Text style={{opacity: .6}}>TKN</Text> {balance}
+              <Text style={{opacity: .6}}>C2W</Text> {balance}
             </Text>
           </View>
         </View>

@@ -36,9 +36,11 @@
 		</dict>
 	</dict>
 	<key>NSCameraUsageDescription</key>
-	<string>We need camera access</string>
+	<string>We need camera access so you can take pictures and upload them</string>
+	<key>NSPhotoLibraryUsageDescription</key>
+	<string>We need access to your gallery so you can choose pictures and upload them</string>
 	<key>NSLocationWhenInUseUsageDescription</key>
-	<string>We need access to you location</string>
+	<string>We need access to you location to get data for leaderboard</string>
 	<key>NSLocationAlwaysAndWhenInUseUsageDescription</key>
 	<string>App usage description</string>
 	<key>UIAppFonts</key>
@@ -60,7 +62,7 @@
 		<string>Zocial.ttf</string>
 	</array>
 	<key>UILaunchStoryboardName</key>
-	<string>LaunchScreen</string>
+	<string>SplashScreen</string>
 	<key>UIRequiredDeviceCapabilities</key>
 	<array>
 		<string>armv7</string>

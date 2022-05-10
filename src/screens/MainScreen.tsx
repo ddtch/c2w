@@ -72,7 +72,7 @@ const KidsView = () => {
   const [kidBalance, addKidBalance] = useState<number>(32);
 
   const addPicture = async () => {
-    const result = await launchCamera({
+    const result = await launchImageLibrary({
       mediaType: 'photo',
       quality: 1,
     });
